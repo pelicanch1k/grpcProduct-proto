@@ -1,4 +1,4 @@
-module github.com/pelicanch1k/grpcProduct-protos
+module github.com/pelicanch1k/grpcProduct-proto
 
 go 1.22.9
 
