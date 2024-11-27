@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = "github.com/pelicanch1k/grpcProduct/proto/main;main_v1";
+
+// gRPC-сервис
+service ProductService {
+  // Метод для загрузки CSV по URL и обновления базы данных
+  rpc Fetch(FetchRequest) returns (FetchResponse);
+
+  // Метод для получения списка с пагинацией и сортировкой
+  rpc List(ListRequest) returns (ListResponse);
+}
+
+// Запрос для метода Fetch
+message FetchRequest {
+  string url = 1; // URL для загрузки CSV
+}
+
+// Ответ для метода Fetch
+message FetchResponse {
+  bool success = 1; // Успех выполнения
+  string message = 2; // Сообщение об ошибке или успехе
+}
+
+// Запрос для метода List с параметрами пагинации и сортировки
+message ListRequest {
+  int32 page = 1;            // Номер страницы (для пагинации)
+  int32 page_size = 2;       // Размер страницы
+  string sort_field = 3;     // Поле для сортировки
+  string sort_order = 4;     // Порядок сортировки (asc/desc)
+}
+
+// Элемент списка продукта
+message Product {
+  string id = 1;
+  string name = 2;
+  int64 price = 3;
+}
+
+// Ответ для метода List
+message ListResponse {
+  repeated Product products = 1; // Список продуктов
+  int32 total_count = 2;         // Общее количество продуктов
+}
